@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -18,13 +17,13 @@ public class BeerResource {
     private Beers beers;
 
     @GetMapping
-    public List<Beer> all(){
+    public List<Beer> all() {
         return beers.findAll();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Beer create(@Valid @RequestBody Beer beer){
+    public Beer create(@Valid @RequestBody Beer beer) {
         return beers.save(beer);
     }
 }

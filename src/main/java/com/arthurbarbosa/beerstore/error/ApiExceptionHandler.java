@@ -33,7 +33,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleNotValidException(MethodArgumentNotValidException exception,
-                                                                 Locale locale){
+                                                                 Locale locale) {
         Stream<ObjectError> errors = exception.getBindingResult().getAllErrors().stream();
         List<ApiError> apiErrors = errors.map(ObjectError::getDefaultMessage)
                 .map(code -> toApiError(code, locale))
@@ -46,20 +46,20 @@ public class ApiExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception exception, Locale locale){
+    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception exception, Locale locale) {
         final String errorCode = "error-1";
-        final HttpStatus status =HttpStatus.INTERNAL_SERVER_ERROR;
+        final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale));
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-    public ApiError toApiError(String code,  Locale locale, Object... args){
+    public ApiError toApiError(String code, Locale locale, Object... args) {
         String message;
-        try{
-            message = apiErrorMessageSource.getMessage(code, args,locale);
+        try {
+            message = apiErrorMessageSource.getMessage(code, args, locale);
 
-        }catch (NoSuchMessageException e){
-            LOG.error("Could not find any message for {} code under {} locale", code,locale);
+        } catch (NoSuchMessageException e) {
+            LOG.error("Could not find any message for {} code under {} locale", code, locale);
             message = NO_MESSAGE_AVAILABLE;
         }
 

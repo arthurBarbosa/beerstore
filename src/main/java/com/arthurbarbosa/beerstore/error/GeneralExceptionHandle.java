@@ -23,10 +23,10 @@ public class GeneralExceptionHandle {
     private static final Logger LOG = LoggerFactory.getLogger(GeneralExceptionHandle.class);
 
     @ExceptionHandler(InvalidFormatException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale){
+    public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale) {
         final String errorCode = "generic-1";
         final HttpStatus status = HttpStatus.BAD_REQUEST;
-        final ErrorResponse errorResponse = ErrorResponse.of(status,apiExceptionHandler.toApiError(errorCode, locale,exception.getValue()));
+        final ErrorResponse errorResponse = ErrorResponse.of(status, apiExceptionHandler.toApiError(errorCode, locale, exception.getValue()));
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
