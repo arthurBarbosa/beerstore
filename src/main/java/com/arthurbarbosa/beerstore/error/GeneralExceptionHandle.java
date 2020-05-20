@@ -22,12 +22,13 @@ public class GeneralExceptionHandle {
 
     private static final Logger LOG = LoggerFactory.getLogger(GeneralExceptionHandle.class);
 
-    @ExceptionHandler(InvalidFormatException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale) {
-        final String errorCode = "generic-1";
-        final HttpStatus status = HttpStatus.BAD_REQUEST;
-        final ErrorResponse errorResponse = ErrorResponse.of(status, apiExceptionHandler.toApiError(errorCode, locale, exception.getValue()));
-        return ResponseEntity.badRequest().body(errorResponse);
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception exception, Locale locale) {
+        LOG.error("Error not expected", exception);
+        final String errorCode = "error-1";
+        final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        final ErrorResponse errorResponse = ErrorResponse.of(status, apiExceptionHandler.toApiError(errorCode, locale));
+        return ResponseEntity.status(status).body(errorResponse);
     }
 
 }
