@@ -1,7 +1,6 @@
 package com.arthurbarbosa.beerstore.error;
 
-import com.arthurbarbosa.beerstore.error.ErrorResponse;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.arthurbarbosa.beerstore.error.ErrorResponse.ApiError;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import  com.arthurbarbosa.beerstore.error.ErrorResponse.ApiError;
 
-import javax.persistence.ElementCollection;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
