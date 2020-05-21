@@ -1,5 +1,6 @@
 package com.arthurbarbosa.beerstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +19,7 @@ public class Beer {
     @SequenceGenerator(name = "beer_seq", sequenceName = "beer_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "beer_seq")
     @EqualsAndHashCode.Include
-    private  Long id;
+    private Long id;
 
     @NotBlank(message = "beers-1")
     private String name;
@@ -29,6 +30,15 @@ public class Beer {
     @NotNull(message = "beers-3")
     @DecimalMin(value = "0", message = "beers-4")
     private BigDecimal volume;
+
+    @JsonIgnore
+    public boolean isNew() {
+        return getId() == null;
+    }
+
+    public boolean alreadyExist() {
+        return getId() != null;
+    }
 
 
 }

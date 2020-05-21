@@ -30,4 +30,10 @@ public class BeerResource {
     public Beer create(@Valid @RequestBody Beer beer) {
         return beerService.save(beer);
     }
+
+    @PutMapping(value = "/{id}")
+    public Beer update(@Valid @PathVariable Long id, @RequestBody Beer beer) {
+        beer.setId(id);
+        return beerService.save(beer);
+    }
 }
