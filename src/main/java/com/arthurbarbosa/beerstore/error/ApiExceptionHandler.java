@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -50,9 +51,12 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException exception, Locale locale) {
         final String errorCode = exception.getCode();
         final HttpStatus status = exception.getStatus();
-        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale));
+
+        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale, exception.getEntity()));
         return ResponseEntity.badRequest().body(errorResponse);
     }
+
+
 
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<ErrorResponse> handleInvalidFormatException(InvalidFormatException exception, Locale locale) {

@@ -5,6 +5,7 @@ import com.arthurbarbosa.beerstore.repository.Beers;
 import com.arthurbarbosa.beerstore.service.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,4 +37,11 @@ public class BeerResource {
         beer.setId(id);
         return beerService.save(beer);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        beerService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
