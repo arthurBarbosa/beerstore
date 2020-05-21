@@ -3,6 +3,7 @@ package com.arthurbarbosa.beerstore.service;
 import com.arthurbarbosa.beerstore.model.Beer;
 import com.arthurbarbosa.beerstore.repository.Beers;
 import com.arthurbarbosa.beerstore.service.exception.BeerAlreadyExistException;
+import com.arthurbarbosa.beerstore.service.exception.BeerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,14 @@ public class BeerService {
     public Beer save(final Beer beer) {
         verifyIfBeerExists(beer);
         return beers.save(beer);
+    }
+
+    public void delete(final Long id) {
+        final Optional beer = beers.findById(id);
+        if (!beer.isPresent()) {
+            throw new BeerNotFoundException();
+        }
+        beers.deleteById(id);
     }
 
     private void verifyIfBeerExists(final Beer beer) {
