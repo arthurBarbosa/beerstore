@@ -1,6 +1,7 @@
 package com.arthurbarbosa.beerstore.error;
 
 import com.arthurbarbosa.beerstore.error.ErrorResponse.ApiError;
+import com.arthurbarbosa.beerstore.service.exception.BusinessException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -43,6 +44,14 @@ public class ApiExceptionHandler {
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, apiErrors);
         return ResponseEntity.badRequest().body(errorResponse);
 
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException exception, Locale locale) {
+        final String errorCode = exception.getCode();
+        final HttpStatus status = exception.getStatus();
+        final ErrorResponse errorResponse = ErrorResponse.of(status, toApiError(errorCode, locale));
+        return ResponseEntity.badRequest().body(errorResponse);
     }
 
     @ExceptionHandler(InvalidFormatException.class)

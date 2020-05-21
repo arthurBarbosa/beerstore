@@ -18,7 +18,7 @@ import java.util.Locale;
 public class GeneralExceptionHandle {
 
     @Autowired
-    ApiExceptionHandler apiExceptionHandler;
+    private ApiExceptionHandler apiExceptionHandler;
 
     private static final Logger LOG = LoggerFactory.getLogger(GeneralExceptionHandle.class);
 
