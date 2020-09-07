@@ -16,11 +16,13 @@ public class BeerInputDTO {
     private String name;
     private String type;
     private BigDecimal volume;
+    private Boolean favorite;
 
     public BeerInputDTO(Beer beer) {
         this.id = beer.getId();
         this.name = beer.getName();
         this.type = beer.getType().name();
         this.volume = beer.getVolume();
+        this.favorite = beer.getFavorite();
     }
 }

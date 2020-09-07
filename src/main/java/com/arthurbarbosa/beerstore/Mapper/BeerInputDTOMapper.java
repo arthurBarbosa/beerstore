@@ -12,6 +12,7 @@ public class BeerInputDTOMapper {
         beer.setName(inputDTO.getName());
         beer.setType(BeerType.valueOf(inputDTO.getType()));
         beer.setVolume(inputDTO.getVolume());
+        beer.setFavorite(inputDTO.getFavorite());
         return beer;
     }
 }
