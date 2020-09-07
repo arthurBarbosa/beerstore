@@ -31,6 +31,8 @@ public class Beer {
     @DecimalMin(value = "0", message = "beers-4")
     private BigDecimal volume;
 
+    private Boolean favorite;
+
     @JsonIgnore
     public boolean isNew() {
         return getId() == null;
